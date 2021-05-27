@@ -1,0 +1,17 @@
+.link-box {
+  height: 56px;
+  border-radius: 40px;
+  color: #F2F2F3;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.link-box:last-child {
+  margin-right: 0;
+}
+
+.link-inactive{
+  color: #8585AD;
+}
