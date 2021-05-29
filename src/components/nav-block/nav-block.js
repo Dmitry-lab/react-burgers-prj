@@ -1,6 +1,6 @@
 import React from 'react';
-import NavLink from '../NavLink/NavLink';
-import navBlockStyles from './NavBlock.module.css';
+import NavLink from '../nav-link/nav-link';
+import navBlockStyles from './nav-block.module.css';
 import { BurgerIcon, ListIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function NavBlock() {

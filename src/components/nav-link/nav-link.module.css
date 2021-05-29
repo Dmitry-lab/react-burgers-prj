@@ -6,12 +6,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: .3s ease;
 }
 
 .link-box:last-child {
   margin-right: 0;
 }
 
-.link-inactive{
-  color: #8585AD;
+.link-box:hover{
+  filter: brightness(1.5);
 }

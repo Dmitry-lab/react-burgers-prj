@@ -1,7 +1,7 @@
 import React from 'react';
-import NavBlock from '../NavBlock/NavBlock';
-import NavLink from '../NavLink/NavLink';
-import headerStyles from './AppHeader.module.css';
+import NavBlock from '../nav-block/nav-block';
+import NavLink from '../nav-link/nav-link';
+import headerStyles from './app-header.module.css';
 import { Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 function AppHeader() {
