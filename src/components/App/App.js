@@ -1,13 +1,13 @@
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import Main from '../main/main';
-import ingridientsList from '../../utils/data';
+import  { ingridientsList, addedIngridients } from '../../utils/data';
 
 function App() {
   return (
     <div className={appStyles.page}>
       <AppHeader />
-      <Main data={ingridientsList}/>
+      <Main ingridients={ingridientsList} addedIngridients={addedIngridients}/>
     </div>
   );
 }

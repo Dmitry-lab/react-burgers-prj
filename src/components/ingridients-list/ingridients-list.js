@@ -9,15 +9,13 @@ function IngridientsList(props) {
     return ingridients.filter(item => item.type === type)
   }
 
-  console.log(props.data)
-
   return (
     <div className={listSyles.types}>
       <section className='mb-10'>
         <h2 className='text text_type_main-medium mb-6'>Булки</h2>
         <div className={`${listSyles.list}`}>
           {specificList(props.data, 'bun').map(item => (
-            <Ingridient info={item} key={item.id}/>
+            <Ingridient info={item} key={item._id}/>
           ))}
         </div>
       </section>
@@ -25,7 +23,7 @@ function IngridientsList(props) {
         <h2 className='text text_type_main-medium mb-6'>Соусы</h2>
         <div className={`${listSyles.list}`}>
           {specificList(props.data, 'sauce').map(item => (
-            <Ingridient info={item} key={item.id}/>
+            <Ingridient info={item} key={item._id}/>
           ))}
         </div>
       </section>
@@ -33,7 +31,7 @@ function IngridientsList(props) {
         <h2 className='text text_type_main-medium mb-6'>Основные ингридиенты</h2>
         <div className={`${listSyles.list}`}>
           {specificList(props.data, 'main').map(item => (
-            <Ingridient info={item} key={item.id}/>
+            <Ingridient info={item} key={item._id}/>
           ))}
         </div>
       </section>

@@ -1,0 +1,48 @@
+.content {
+  max-width: 610px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px
+}
+
+.main-block {
+  overflow: auto;
+  max-height: 464px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px
+}
+
+.main-element {
+  min-height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Подмена стиля компонента из библиотеки, т.к. при коротких названиях ингридиента текст не выравнивается по ширине*/
+.main-element div {
+  flex-basis: 488px;
+}
+
+.main-element div span span:first-of-type {
+  flex-basis: 90%;
+}
+
+.main-block::-webkit-scrollbar {
+  width: 8px;
+
+}
+
+.main-block::-webkit-scrollbar-thumb {
+  background-color: #8585AD;
+  height: 292px;
+}
+
+.main-block::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+}
