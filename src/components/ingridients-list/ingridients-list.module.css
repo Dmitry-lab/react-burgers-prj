@@ -11,18 +11,8 @@
   gap: 32px 24px;
 }
 
-.types::-webkit-scrollbar {
-  width: 8px;
-}
-
 .types::-webkit-scrollbar-thumb {
-  background-color: #8585AD;
   height: 492px;
-}
-
-.types::-webkit-scrollbar-track {
-  background-color: #2F2F37;
-
 }
 
 

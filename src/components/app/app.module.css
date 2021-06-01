@@ -1,6 +1,5 @@
 .page {
   background-color: #131316;
-  height: calc(100vh - 40px);
-  padding-top: 40px;
+  height: 100vh;
 }
 

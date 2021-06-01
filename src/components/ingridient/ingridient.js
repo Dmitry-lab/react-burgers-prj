@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { ingridientPropTypes } from '../../utils/prop-types';
 import ingridientsStyles from './ingridients.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -11,6 +13,10 @@ function Ingridient({info}) {
       <Counter count={1} size={'default'}/>
     </div>
   )
+}
+
+Ingridient.propTypes = {
+  info: ingridientPropTypes.isRequired
 }
 
 export default Ingridient;

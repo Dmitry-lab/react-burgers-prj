@@ -1,1 +1,14 @@
 @import url("./vendor/normalize.css");
+
+div::-webkit-scrollbar {
+  width: 8px;
+}
+
+div::-webkit-scrollbar-thumb {
+  background-color: var(--text-inactive-color);
+  height: 492px;
+}
+
+div::-webkit-scrollbar-track {
+  background-color: var(--background-element);
+}

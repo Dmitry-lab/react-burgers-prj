@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { ingridientPropTypes } from '../../utils/prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import constructorListStyle from './constructor-list.module.css';
+import styles from './constructor-list.module.css';
 
 function ConstructorList(props) {
   return (
-    <div className={`${constructorListStyle.content} mt-5`}>
+    <div className={`${styles.content} mt-5`}>
       <div className='ml-10 pl-2 mr-4'>
         <ConstructorElement
           type="top"
@@ -14,9 +16,9 @@ function ConstructorList(props) {
           thumbnail='https://code.s3.yandex.net/react/code/bun-02-mobile.png'
         />
       </div>
-      <div className={constructorListStyle['main-block']}>
+      <div className={styles['main-block']}>
         {props.data.map(item => (
-          <div className={`${constructorListStyle['main-element']} pl-4`} key={item._id}>
+          <div className={`${styles['main-element']} pl-4`} key={item._id}>
             <DragIcon />
             <ConstructorElement
               text={item.name}
@@ -37,6 +39,10 @@ function ConstructorList(props) {
       </div>
     </div>
   )
+}
+
+ConstructorList.propTypes = {
+  data: PropTypes.arrayOf(ingridientPropTypes.isRequired).isRequired
 }
 
 export default ConstructorList;
