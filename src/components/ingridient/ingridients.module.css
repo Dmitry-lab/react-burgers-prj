@@ -1,0 +1,17 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: .3s ease;
+  min-height: 208px;
+  position: relative;
+}
+
+.caption {
+  text-align: center;
+}
+
+.content:hover {
+  cursor: pointer;
+  opacity: .7;
+}
