@@ -1,6 +1,8 @@
 import React from 'react';
 import Ingridient from '../ingridient/ingridient';
 import listSyles from './ingridients-list.module.css';
+import PropTypes from 'prop-types'
+import { ingridientPropTypes } from '../../utils/prop-types';
 
 
 function IngridientsList(props) {
@@ -40,3 +42,7 @@ function IngridientsList(props) {
 }
 
 export default IngridientsList;
+
+IngridientsList.propTypes = {
+  data: PropTypes.arrayOf(ingridientPropTypes.isRequired).isRequired
+}
