@@ -1,5 +1,6 @@
 import React from 'react';
 import overlayStyles from './modal-overlay.module.css'
+import PropTypes from 'prop-types'
 
 function ModalOverlay({ onCloseClick }) {
 
@@ -12,3 +13,8 @@ function ModalOverlay({ onCloseClick }) {
 }
 
 export default ModalOverlay;
+
+
+ModalOverlay.ingredientPropTypes = {
+  onCloseClick: PropTypes.func.isRequired
+}

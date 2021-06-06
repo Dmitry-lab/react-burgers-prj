@@ -4,6 +4,8 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import constructorStyles from './burger-constructor.module.css'
+import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../utils/prop-types'
 
 function BurgerConstructor(props) {
   const [isModalOpened, setModalOpened] = React.useState(false);
@@ -36,3 +38,7 @@ function BurgerConstructor(props) {
 }
 
 export default BurgerConstructor;
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
+}

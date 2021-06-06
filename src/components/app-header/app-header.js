@@ -8,7 +8,6 @@ function AppHeader() {
         <header className={headerStyles.header}>
           <div className={headerStyles.content}>
             <NavBlock />
-            {/*<NavLink iconComponent={(type) => <ProfileIcon type={type}/>} linkName='Личный кабинет' status='inactive' /> */}
             <div className={headerStyles['logo-container']}>
               <Logo />
             </div>

@@ -5,7 +5,7 @@
   align-items: center;
   border-radius: 40px;
   background: var(--background);
-  position: absolute;
+  position: fixed;
   left: 50vw;
   top: 50vh;
   transform: translate(-50%, -50%);

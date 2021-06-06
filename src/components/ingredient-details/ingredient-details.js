@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from './ingridient-details.module.css'
-import { ingridientPropTypes } from '../../utils/prop-types';
+import styles from './ingredient-details.module.css'
+import { ingredientPropTypes } from '../../utils/prop-types';
 
-function IngridientDetails({info}) {
+function IngredientDetails({info}) {
   const nutrientTextStyle = ' text text_type_main-default text_color_inactive';
 
   return (
-    <div className={styles.ingridient}>
+    <div className={styles.ingredient}>
       <img className='mb-4' src={info.image_large} alt={`изображение ${info.name}`} />
       <p className='text text_type_main-medium'>{info.name}</p>
       <div className={`${styles.nutrients} mt-8 mb-15`}>
@@ -31,8 +31,8 @@ function IngridientDetails({info}) {
   )
 }
 
-export default IngridientDetails
+export default IngredientDetails
 
-IngridientDetails.propTypes = {
-  info: ingridientPropTypes.isRequired
+IngredientDetails.propTypes = {
+  info: ingredientPropTypes.isRequired
 }
