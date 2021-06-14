@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ingridientPropTypes } from '../../utils/prop-types';
+import { ingredientPropTypes } from '../../utils/prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './constructor-list.module.css';
 
@@ -42,7 +42,7 @@ function ConstructorList(props) {
 }
 
 ConstructorList.propTypes = {
-  data: PropTypes.arrayOf(ingridientPropTypes.isRequired).isRequired
+  data: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 }
 
 export default ConstructorList;
