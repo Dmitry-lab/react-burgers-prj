@@ -36,7 +36,7 @@ function IngredientsList(props) {
             <Ingredient info={item} key={item._id}/>
           ))}
         </div>
-      </section>
+        </section>
     </div>
   )
 }
