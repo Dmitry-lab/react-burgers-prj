@@ -14,7 +14,7 @@ function ConstructorList({bun, ingredients}) {
             isLocked={true}
             text={bun.name + ' (верх)'}
             price={bun.price}
-            thumbnail='https://code.s3.yandex.net/react/code/bun-02-mobile.png'
+            thumbnail={bun.image_mobile}
           />
         </div>
       }
@@ -37,7 +37,7 @@ function ConstructorList({bun, ingredients}) {
             isLocked={true}
             text={bun.name + ' (низ)'}
             price={bun.price}
-            thumbnail='https://code.s3.yandex.net/react/code/bun-02-mobile.png'
+            thumbnail={bun.image_mobile}
           />
         </div>
       }

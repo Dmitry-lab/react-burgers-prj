@@ -3,17 +3,10 @@ import AppHeader from '../app-header/app-header';
 import Main from '../main/main';
 import { getIngredients } from '../../utils/api-requests';
 import React from 'react';
-import { ConstructorContext } from '../../utils/constructor-context'
+import { BurgerContext } from '../../utils/burger-context'
 
 function App() {
   const [ingredients, setIngredients] = React.useState([]);
-
-  const ingredientsForConstructor = () => {
-    const bun = ingredients.find(item => item.type === 'bun')
-    const main = ingredients.filter(item => item.type !== 'bun')
-
-    return [bun, ...main]
-  }
 
   React.useEffect(() => {
     getIngredients()
@@ -24,9 +17,9 @@ function App() {
   return (
     <div className={appStyles.page}>
       <AppHeader />
-      <ConstructorContext.Provider value={ingredientsForConstructor()}>
-        {ingredients.length && <Main ingredients={ingredients}/>}
-      </ConstructorContext.Provider>
+      <BurgerContext.Provider value={ingredients}>
+        {ingredients.length && <Main />}
+      </BurgerContext.Provider>
     </div>
   );
 }

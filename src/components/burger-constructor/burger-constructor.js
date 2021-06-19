@@ -4,12 +4,12 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import constructorStyles from './burger-constructor.module.css'
-import { ConstructorContext } from '../../utils/constructor-context'
+import { BurgerContext } from '../../utils/burger-context'
 
 function BurgerConstructor() {
   const initialSum = { sum: 0 }
 
-  const ingredients = useContext(ConstructorContext);
+  const allIngredients = useContext(BurgerContext);
   const [sumState, dispatchSumState] = React.useReducer(reducer, initialSum, undefined)
   const [isModalOpened, setModalOpened] = React.useState(false);
 
@@ -28,18 +28,25 @@ function BurgerConstructor() {
     setModalOpened(true);
   }
 
+  const selectedIngredients = React.useMemo(() => {
+    const bun = allIngredients.find(item => item.type === 'bun')
+    const main = allIngredients.filter(item => item.type !== 'bun')
+
+    return [bun, ...main]
+  }, [allIngredients])
+
   const findBun = React.useMemo(() => {
-    return ingredients.find(item => item.type === 'bun')
-  }, [ingredients])
+    return selectedIngredients.find(item => item.type === 'bun')
+  }, [selectedIngredients])
 
   const findMain = React.useMemo(() => {
-    return ingredients.filter(item => item.type !== 'bun')
-  }, [ingredients])
+    return selectedIngredients.filter(item => item.type !== 'bun')
+  }, [selectedIngredients])
+
 
   React.useEffect(() => {
-    ingredients.length && dispatchSumState({ payload: ingredients })
-  }, [ingredients])
-
+    selectedIngredients.length && dispatchSumState({ payload: selectedIngredients })
+  }, [selectedIngredients])
 
   return (
     <div className={constructorStyles.content}>
@@ -52,7 +59,7 @@ function BurgerConstructor() {
         <Button type="primary" size="large" onClick={handlerOpenModal}>Оформить заказ</Button>
         {isModalOpened &&
           <Modal onCloseClick={handlerCloseModal}>
-            <OrderDetails orderNumber='034536'/>
+            <OrderDetails ingredients={selectedIngredients}/>
           </Modal>
         }
       </div>

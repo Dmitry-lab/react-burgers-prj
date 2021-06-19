@@ -2,11 +2,11 @@ import React from 'react';
 import doneImg from '../../images/done.png';
 import orderStyles from './order-details.module.css';
 import { placeOrder } from '../../utils/api-requests';
-import { ConstructorContext } from '../../utils/constructor-context'
+import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../utils/prop-types';
 
-function OrderDetails() {
+function OrderDetails({ ingredients }) {
   const [orderNumber, setOrderNumber] = React.useState('');
-  const ingredients = React.useContext(ConstructorContext);
 
   React.useEffect(() => {
     placeOrder(ingredients.map(item=>item._id))
@@ -33,6 +33,10 @@ function OrderDetails() {
 
     </div>
   )
+}
+
+OrderDetails.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 }
 
 export default OrderDetails
