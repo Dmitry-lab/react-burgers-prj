@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './ingredient-details.module.css'
-import { ingredientPropTypes } from '../../utils/prop-types';
+import { useSelector } from 'react-redux';
 
-function IngredientDetails({info}) {
+function IngredientDetails() {
   const nutrientTextStyle = ' text text_type_main-default text_color_inactive';
+  const { viewedIngredient: info } = useSelector(store => store.burgersConstructor);
 
   return (
     <div className={styles.ingredient}>
@@ -32,7 +33,3 @@ function IngredientDetails({info}) {
 }
 
 export default IngredientDetails
-
-IngredientDetails.propTypes = {
-  info: ingredientPropTypes.isRequired
-}

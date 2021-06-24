@@ -1,11 +1,10 @@
 import React from 'react';
 import Ingredient from '../ingredient/ingredient';
 import listSyles from './ingredients-list.module.css';
-import { BurgerContext } from '../../utils/burger-context'
-
+import { useSelector } from 'react-redux';
 
 function IngredientsList() {
-  const ingredients = React.useContext(BurgerContext);
+  const { ingredients } = useSelector((store) => store.burgersConstructor)
 
   const specificList = (ingredients, type) => {
     return ingredients.filter(item => item.type === type)

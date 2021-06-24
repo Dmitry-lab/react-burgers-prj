@@ -3,13 +3,15 @@ import ConstructorList from '../constructor-list/constructor-list';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import constructorStyles from './burger-constructor.module.css'
-import { BurgerContext } from '../../utils/burger-context'
+import constructorStyles from './burger-constructor.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { CLEAR_ORDER_INFO } from '../../services/actions/burgers-constructor';
 
 function BurgerConstructor() {
   const initialSum = { sum: 0 }
 
-  const allIngredients = useContext(BurgerContext);
+  const { ingredients: allIngredients } = useSelector(store => store.burgersConstructor);
+  const dispatch = useDispatch();
   const [sumState, dispatchSumState] = React.useReducer(reducer, initialSum, undefined)
   const [isModalOpened, setModalOpened] = React.useState(false);
 
@@ -21,7 +23,10 @@ function BurgerConstructor() {
   }
 
   const handlerCloseModal = () => {
-    setModalOpened(false);
+    setModalOpened(state => {
+      state = false;
+      dispatch({ type: CLEAR_ORDER_INFO })
+    });
   }
 
   const handlerOpenModal = () => {
