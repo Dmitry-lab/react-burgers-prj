@@ -1,8 +1,9 @@
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import Main from '../main/main';
-import getIngredients from '../../utils/api-requests';
+import { getIngredients } from '../../utils/api-requests';
 import React from 'react';
+import { BurgerContext } from '../../utils/burger-context'
 
 function App() {
   const [ingredients, setIngredients] = React.useState([]);
@@ -16,7 +17,9 @@ function App() {
   return (
     <div className={appStyles.page}>
       <AppHeader />
-      <Main ingredients={ingredients} addedIngredients={ingredients}/>
+      <BurgerContext.Provider value={ingredients}>
+        {ingredients.length && <Main />}
+      </BurgerContext.Provider>
     </div>
   );
 }
