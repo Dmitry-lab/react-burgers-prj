@@ -6,13 +6,29 @@
   gap: 16px
 }
 
+.contrast {
+  background-color: #1c1c21;
+  border-radius: 10px;
+}
+
 .main-block {
   overflow: auto;
   max-height: 464px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 16px
+  gap: 16px;
+  flex-basis: 464px;
+}
+
+.bun-element {
+  min-height: 80px;
+}
+
+.info {
+  width: 60%;
+  align-self: center;
+  text-align: center;
 }
 
 .main-element {

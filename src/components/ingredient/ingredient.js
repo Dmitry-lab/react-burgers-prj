@@ -6,10 +6,18 @@ import ingredientsStyles from './ingredients.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { SHOW_INGREDIENT_INFO, HIDE_INGREDIENT_INFO } from '../../services/actions/burgers-constructor';
+import { useDrag } from 'react-dnd';
 
 function Ingredient({info}) {
-  const { viewedIngredient } = useSelector(store => store.burgersConstructor)
+  const { viewedIngredient, addedIngredients } = useSelector(store => store.burgersConstructor)
   const dispatch = useDispatch();
+  const [, dragRef] = useDrag(() => ({
+    type: 'ingredient',
+    item: {info},
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging()
+    })
+  }))
 
   const handlerCloseModal = () => {
     dispatch({ type: HIDE_INGREDIENT_INFO })
@@ -23,12 +31,16 @@ function Ingredient({info}) {
     return info._id === viewedIngredient?._id ? true : false
   }, [info, viewedIngredient])
 
+  const currentCount = useMemo(() => {
+    return addedIngredients.filter(item => item._id === info._id).length
+  }, [addedIngredients, info._id])
+
   return (
-    <div className={ingredientsStyles.content} onClick={handlerOpenModal}>
+    <div ref={dragRef} className={ingredientsStyles.content} onClick={handlerOpenModal}>
       <img className='mb-1' src={info.image} alt={`ингридиент ${info.name}`} />
       <span className='text text_type_digits-default mb-1'>{info.price} <CurrencyIcon type="primary" /> </span>
       <span className={`${ingredientsStyles.caption} text text_type_main-default`}>{info.name}</span>
-      <Counter count={1} size={'default'}/>
+      {currentCount ? <Counter count={currentCount} size={'default'}/> : null}
       {isModalOpened &&
         <Modal onCloseClick={handlerCloseModal} header='Детали ингридиента'>
           <IngredientDetails />
