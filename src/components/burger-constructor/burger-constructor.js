@@ -21,10 +21,8 @@ function BurgerConstructor() {
 
 
   const handlerCloseModal = () => {
-    setModalOpened(state => {
-      state = false;
-      dispatch({ type: CLEAR_ORDER_INFO })
-    });
+    dispatch({ type: CLEAR_ORDER_INFO });
+    setModalOpened(false)
   }
 
   const handlerOpenModal = () => {

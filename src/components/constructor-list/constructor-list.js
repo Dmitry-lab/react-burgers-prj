@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import MainConstructorItem from '../main-constructor-item/main-constructor-item';
 import styles from './constructor-list.module.css';
 import { useDrop } from 'react-dnd';

@@ -59,7 +59,8 @@ export const constructorReducer = (state = initialState, action) => {
       return {
         ...state,
         orderRequestFaild: false,
-        currentOrder: null
+        currentOrder: null,
+        addedIngredients: []
       }
     }
     case CHANGE_INGREDIENTS_GROUP: {

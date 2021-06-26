@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect, useRef } from 'react';
+import Modal from '../modal/modal';
 import Ingredient from '../ingredient/ingredient';
 import listSyles from './ingredients-list.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { CHANGE_INGREDIENTS_GROUP, GET_TO_SCROLL_TARGET } from '../../services/actions/burgers-constructor';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import {
+  CHANGE_INGREDIENTS_GROUP,
+  GET_TO_SCROLL_TARGET,
+  SHOW_INGREDIENT_INFO,
+  HIDE_INGREDIENT_INFO
+ } from '../../services/actions/burgers-constructor';
 
 function IngredientsList() {
+  const [isModalOpened, setModalOpened] = useState(false);
   const { ingredients, currentTab, scrollTarget } = useSelector((store) => store.burgersConstructor)
   const dispatch = useDispatch();
 
@@ -51,6 +59,16 @@ function IngredientsList() {
     }
   }
 
+  const handlerCloseModal = () => {
+    setModalOpened(false);
+    dispatch({ type: HIDE_INGREDIENT_INFO })
+  }
+
+  const handlerOpenModal = (info) => {
+    setModalOpened(true);
+    dispatch({ type: SHOW_INGREDIENT_INFO, info})
+  }
+
   useEffect(() => {
     if (!scrollTarget)
       return
@@ -70,7 +88,7 @@ function IngredientsList() {
         <h2 ref={bunsRef} className='text text_type_main-medium mb-6'>Булки</h2>
         <div className={`${listSyles.list}`}>
           {specificList(ingredients, 'bun').map(item => (
-            <Ingredient info={item} key={item._id}/>
+            <Ingredient info={item} onOpen={handlerOpenModal} key={item._id}/>
           ))}
         </div>
       </section>
@@ -78,7 +96,7 @@ function IngredientsList() {
         <h2 ref={saucesRef} className='text text_type_main-medium mb-6'>Соусы</h2>
         <div className={`${listSyles.list}`}>
           {specificList(ingredients, 'sauce').map(item => (
-            <Ingredient info={item} key={item._id}/>
+            <Ingredient info={item} onOpen={handlerOpenModal} key={item._id}/>
           ))}
         </div>
       </section>
@@ -86,10 +104,15 @@ function IngredientsList() {
         <h2 ref={mainRef} className='text text_type_main-medium mb-6'>Основные ингридиенты</h2>
         <div className={`${listSyles.list}`}>
           {specificList(ingredients, 'main').map(item => (
-            <Ingredient info={item} key={item._id}/>
+            <Ingredient info={item} onOpen={handlerOpenModal} key={item._id}/>
           ))}
         </div>
-        </section>
+      </section>
+      {isModalOpened &&
+        <Modal onCloseClick={handlerCloseModal} header='Детали ингридиента'>
+          <IngredientDetails />
+        </Modal>
+      }
     </div>
   )
 }
