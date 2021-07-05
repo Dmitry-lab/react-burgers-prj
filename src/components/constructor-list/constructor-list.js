@@ -1,53 +1,78 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../utils/prop-types';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import MainConstructorItem from '../main-constructor-item/main-constructor-item';
 import styles from './constructor-list.module.css';
+import { useDrop } from 'react-dnd';
+import { ADD_INGREDIENT_IN_ORDER, REMOVE_INGREDIENT_FROM_ORDER } from '../../services/actions/burgers-constructor';
 
-function ConstructorList({bun, ingredients}) {
+function ConstructorList() {
+  const { addedIngredients } = useSelector(store => store.burgersConstructor);
+  const dispatch = useDispatch();
+  const [{ isOver }, dropTarget] = useDrop({
+    accept: 'ingredient',
+    drop(item) {
+      dispatch({ type: ADD_INGREDIENT_IN_ORDER, ingredient: item.info })
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver()
+    })
+  })
+
+  const closeHandler = (index) => {
+    dispatch({ type: REMOVE_INGREDIENT_FROM_ORDER, index})
+  }
+
+  const bun = React.useMemo(() => {
+    return addedIngredients.find(item => item?.type === 'bun')
+  }, [addedIngredients])
+
+  const contentStyle = isOver
+    ? `${styles.content} ${styles.contrast} mt-5`
+    : `${styles.content} mt-5`
+
   return (
-    <div className={`${styles.content} mt-5`}>
-      {bun &&
-        <div className='ml-10 pl-2 mr-4'>
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={bun.name + ' (верх)'}
-            price={bun.price}
-            thumbnail={bun.image_mobile}
-          />
-        </div>
-      }
-      <div className={styles['main-block']}>
-        {ingredients.map(item => (
-          <div className={`${styles['main-element']} pl-4`} key={item._id}>
-            <DragIcon />
-            <ConstructorElement
-              text={item.name}
-              price={item.price}
-              thumbnail={item.image_mobile}
-            />
-          </div>
-        ))}
+    <div ref={dropTarget} className={contentStyle}>
+      <div className={`${styles['bun-element']} ml-10 pl-2 mr-4`}>
+        {bun && <ConstructorElement
+          type="top"
+          isLocked={true}
+          text={bun.name + ' (верх)'}
+          price={bun.price}
+          thumbnail={bun.image_mobile}
+        />}
       </div>
-      {bun &&
-        <div className='ml-10 pl-2 mr-4'>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={bun.name + ' (низ)'}
-            price={bun.price}
-            thumbnail={bun.image_mobile}
-          />
-        </div>
-      }
+      <div className={styles['main-block']}>
+        {addedIngredients.length
+          ? addedIngredients.map((item, index) => {
+              if (item.type !== 'bun') {
+                return (
+                  <MainConstructorItem
+                    key={index}
+                    item={item}
+                    onClose={closeHandler}
+                    index = {index}
+                  />
+                )
+              }
+              return null
+            })
+          : <p className={`${styles.info} text text_type_main-default`}>Перетащите ингредиенты из списка слева в область конструктора</p>
+        }
+      </div>
+
+      <div className={`${styles['bun-element']} ml-10 pl-2 mr-4`}>
+        {bun && <ConstructorElement
+          type="bottom"
+          isLocked={true}
+          text={bun.name + ' (низ)'}
+          price={bun.price}
+          thumbnail={bun.image_mobile}
+        />}
+      </div>
+
     </div>
   )
-}
-
-ConstructorList.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
-  bun: ingredientPropTypes.isRequired
 }
 
 export default ConstructorList;

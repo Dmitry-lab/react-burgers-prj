@@ -2,6 +2,7 @@
   max-width: 600px;
   display: flex;
   flex-direction: column;
+  flex-basis: 600px;
 }
 
 .bottom-block {
