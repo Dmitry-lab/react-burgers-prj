@@ -1,22 +1,42 @@
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import Main from '../main/main';
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllIngredients } from '../../services/actions/burgers-constructor';
+import { Switch, Route } from 'react-router-dom';
+import HomePage from '../../pages/home-page/home-page';
+import Login from '../../pages/login/login';
+import Registration from '../../pages/registration/registration';
+import ForgotPassword from '../../pages/forgot-password/forgot-password';
+import ResetPassword from '../../pages/reset-password/reset-password';
+import FeedPage from '../../pages/feed-page/feed-page';
+import NotFound from '../../pages/not-found/not-found';
 
 function App() {
-  const { ingredients } = useSelector(store => store.burgersConstructor);
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    dispatch(getAllIngredients())
-  }, [])
-
   return (
     <div className={appStyles.page}>
       <AppHeader />
-      {ingredients.length && <Main />}
+      <Switch>
+        <Route path='/login'>
+          <Login />
+        </Route>
+        <Route path='/register'>
+          <Registration />
+        </Route>
+        <Route path='/forgot-password'>
+          <ForgotPassword />
+        </Route>
+        <Route path='/reset-password'>
+          <ResetPassword />
+        </Route>
+        <Route path='/' exact={true}>
+          <HomePage />
+        </Route>
+        <Route path='/feed' exact={true}>
+          <FeedPage />
+        </Route>
+        <Route>
+          <NotFound />
+        </Route>
+      </Switch>
     </div>
   );
 }

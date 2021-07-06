@@ -5,14 +5,14 @@ import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 
 function AppHeader() {
     return (
-        <header className={headerStyles.header}>
-          <div className={headerStyles.content}>
-            <NavBlock />
-            <div className={headerStyles['logo-container']}>
-              <Logo />
-            </div>
+      <header className={headerStyles.header}>
+        <div className={headerStyles.content}>
+          <NavBlock />
+          <div className={headerStyles['logo-container']}>
+            <Logo />
           </div>
-        </header>
+        </div>
+      </header>
     )
 }
 
