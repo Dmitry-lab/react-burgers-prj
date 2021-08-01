@@ -1,0 +1,38 @@
+.content {
+  max-width: 1280px;
+  margin: 120px auto;
+  display: flex;
+  gap: 60px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 320px;
+}
+
+.link {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity .3s ease;
+}
+
+.link:hover {
+  opacity: .4;
+  cursor: pointer;
+}
+
+.info {
+  opacity: .4;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.active span {
+  color: var(--text-primary-color)
+}

@@ -1,12 +1,12 @@
 import React from 'react';
 import doneImg from '../../images/done.png';
-import orderStyles from './order-details.module.css';
+import orderStyles from './order-info.module.css';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderInfo } from '../../services/actions/burgers-constructor';
 
-function OrderDetails({ ingredients }) {
+function OrderInfo({ ingredients }) {
   const { currentOrder, orderRequestFaild } = useSelector(store => store.burgersConstructor)
   const dispatch = useDispatch();
 
@@ -38,9 +38,9 @@ function OrderDetails({ ingredients }) {
   )
 }
 
-OrderDetails.propTypes = {
+OrderInfo.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 }
 
-export default OrderDetails
+export default OrderInfo
 

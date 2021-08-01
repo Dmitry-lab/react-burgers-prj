@@ -9,12 +9,34 @@ import ForgotPassword from '../../pages/forgot-password/forgot-password';
 import ResetPassword from '../../pages/reset-password/reset-password';
 import FeedPage from '../../pages/feed-page/feed-page';
 import NotFound from '../../pages/not-found/not-found';
+import UserInfo from '../../pages/user-info/user-info';
+import IngredientDetailsPage from '../../pages/ingredient-details-page/ingredient-details-page';
+import { getAllIngredients } from '../../services/actions/burgers-constructor';
+import { useDispatch } from 'react-redux';
 
 function App() {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getAllIngredients())
+  }, [])
+
   return (
     <div className={appStyles.page}>
       <AppHeader />
       <Switch>
+        <Route path='/' exact={true}>
+          <HomePage />
+        </Route>
+        <Route path='/feed' exact={true}>
+          <FeedPage />
+        </Route>
+        <Route path='/ingredients/:id'>
+          <IngredientDetailsPage />
+        </Route>
+        <Route path='/profile' exact={true}>
+          <UserInfo />
+        </Route>
         <Route path='/login'>
           <Login />
         </Route>
@@ -27,12 +49,7 @@ function App() {
         <Route path='/reset-password'>
           <ResetPassword />
         </Route>
-        <Route path='/' exact={true}>
-          <HomePage />
-        </Route>
-        <Route path='/feed' exact={true}>
-          <FeedPage />
-        </Route>
+
         <Route>
           <NotFound />
         </Route>

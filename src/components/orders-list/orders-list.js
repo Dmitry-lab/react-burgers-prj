@@ -6,8 +6,8 @@ import OrderItem from '../order-item/order-item';
 function OrdersList() {
   return (
     <div className={styles.list}>
-      {testOrders.map(order => (
-        <OrderItem info={order}/>
+      {testOrders.map((order, index) => (
+        <OrderItem info={order} key={index}/>
       ))}
     </div>
   )

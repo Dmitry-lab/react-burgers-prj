@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
+import { registerUser } from '../../services/actions/user-info';
 import styles from '../login/login.module.css';
 
 function Registration() {
@@ -8,8 +10,15 @@ function Registration() {
   const [nameValue, setName] = useState('');
   const [passwordValue, setPassword] = useState('');
 
+  const dispatch = useDispatch();
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(registerUser(nameValue, emailValue, passwordValue))
+  }
+
   return (
-    <div className={styles.content}>
+    <form className={styles.content} onSubmit={submitHandler}>
       <h1 className='text text_type_main-medium mb-6'>Регистрация</h1>
       <Input
         type='text'
@@ -34,7 +43,7 @@ function Registration() {
       <p className='text text_type_main-default text_color_inactive mt-20'>
         Уже зарегистрированы? <NavLink className={styles.link} to='/login'>Войти</NavLink>
       </p>
-    </div>
+    </form>
   )
 }
 

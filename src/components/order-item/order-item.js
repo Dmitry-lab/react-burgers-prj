@@ -17,11 +17,12 @@ function OrderItem({ info }) {
       <span className='text text_type_main-medium mt-6 mb-6'>{info.name}</span>
       <div className={styles.bottom}>
         <div className={styles['image-boxes']}>
-          {visibleIngredients.map(item => (
+          {visibleIngredients.map((item, index) => (
               <div
+                key={index}
                 className={styles['image-box']}
                 style={{
-                  backgroundImage: `url("${item}")`
+                  backgroundImage: `url("${item.url}")`
                 }}
               />
           ))}

@@ -1,7 +1,7 @@
 import React, { useMemo} from 'react';
 import ConstructorList from '../constructor-list/constructor-list';
 import Modal from '../modal/modal';
-import OrderDetails from '../order-details/order-details';
+import OrderInfo from '../order-info/order-info';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import constructorStyles from './burger-constructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
@@ -40,7 +40,7 @@ function BurgerConstructor() {
         <Button type="primary" size="large" onClick={handlerOpenModal}>Оформить заказ</Button>
         {isModalOpened &&
           <Modal onCloseClick={handlerCloseModal}>
-            <OrderDetails ingredients={addedIngredients}/>
+            <OrderInfo ingredients={addedIngredients}/>
           </Modal>
         }
       </div>
