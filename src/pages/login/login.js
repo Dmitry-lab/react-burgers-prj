@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import styles from './login.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogIn } from '../../services/actions/user-info';
 
 function Login() {
   const [emailValue, setEmail] = useState('');
   const [passwordValue, setPassword] = useState('');
 
+  const dispatch = useDispatch();
+  const user = useSelector(store => store.userInfo.info);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(userLogIn(emailValue, passwordValue));
+  }
+
+  if (user.email)
+    return <Redirect to='/' />
+
   return (
-    <div className={styles.content}>
+    <form className={styles.content} onSubmit={submitHandler}>
       <h1 className='text text_type_main-medium mb-6'>Вход</h1>
       <Input
         type='email'
@@ -29,7 +42,7 @@ function Login() {
       <p className='text text_type_main-default text_color_inactive mt-4'>
         Забыли пароль? <NavLink className={styles.link} to='/forgot-password'>Восстановить пароль</NavLink>
       </p>
-    </div>
+    </form>
   )
 }
 

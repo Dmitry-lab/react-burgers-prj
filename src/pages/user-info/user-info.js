@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { NavLink } from 'react-router-dom'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './user-info.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUserInfo } from '../../services/actions/user-info';
 
 function UserInfo() {
   const [name, setName] = useState('');
@@ -12,8 +14,20 @@ function UserInfo() {
   const [loginChanged, setLoginChanged] = useState(false);
   const [passwordChanged, setPasswordChanged] = useState(false);
 
+  const dispatch = useDispatch();
+  const info = useSelector(store => store.userInfo.info)
+
   const mediumTextClassName = 'text text_type_main-medium text_color_inactive';
   const defaultTextClassName = 'text text_type_main-default text_color_inactive';
+
+  useEffect(() => {
+    dispatch(setUserInfo())
+  }, [])
+
+  useEffect(() => {
+    setName(info.name);
+    setLogin(info.email)
+  }, [info])
 
   const nameChangeHandler = (e) => {
     setName(e.target.value);

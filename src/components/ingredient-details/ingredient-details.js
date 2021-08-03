@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './ingredient-details.module.css'
 import { useSelector } from 'react-redux';
 import { Redirect, useParams } from 'react-router-dom';
-import NotFound from '../../pages/not-found/not-found';
 
 function IngredientDetails() {
   const nutrientTextStyle = ' text text_type_main-default text_color_inactive';

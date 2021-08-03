@@ -6,12 +6,15 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import constructorStyles from './burger-constructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { CLEAR_ORDER_INFO } from '../../services/actions/burgers-constructor';
+import { Redirect } from 'react-router-dom';
 
 
 function BurgerConstructor() {
   const [isModalOpened, setModalOpened] = React.useState(false);
   const { addedIngredients } = useSelector(store => store.burgersConstructor);
   const dispatch = useDispatch();
+
+  const user = useSelector(store => store.userInfo.info);
 
   const orderSum = useMemo(() => {
     return addedIngredients.reduce((prev, item) => {
@@ -25,9 +28,7 @@ function BurgerConstructor() {
     setModalOpened(false)
   }
 
-  const handlerOpenModal = () => {
-    setModalOpened(true);
-  }
+  const handlerOpenModal = () => setModalOpened(true);
 
   return (
     <div  className={constructorStyles.content}>

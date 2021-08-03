@@ -13,6 +13,7 @@ import UserInfo from '../../pages/user-info/user-info';
 import IngredientDetailsPage from '../../pages/ingredient-details-page/ingredient-details-page';
 import { getAllIngredients } from '../../services/actions/burgers-constructor';
 import { useDispatch } from 'react-redux';
+import ProtectedRoute from '../protected-route';
 
 function App() {
   const dispatch = useDispatch();
@@ -34,9 +35,6 @@ function App() {
         <Route path='/ingredients/:id'>
           <IngredientDetailsPage />
         </Route>
-        <Route path='/profile' exact={true}>
-          <UserInfo />
-        </Route>
         <Route path='/login'>
           <Login />
         </Route>
@@ -49,6 +47,9 @@ function App() {
         <Route path='/reset-password'>
           <ResetPassword />
         </Route>
+        <ProtectedRoute path='/profile' exact={true}>
+          <UserInfo />
+        </ProtectedRoute>
 
         <Route>
           <NotFound />

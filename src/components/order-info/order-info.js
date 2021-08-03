@@ -5,14 +5,19 @@ import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderInfo } from '../../services/actions/burgers-constructor';
+import { Redirect } from 'react-router-dom';
 
 function OrderInfo({ ingredients }) {
   const { currentOrder, orderRequestFaild } = useSelector(store => store.burgersConstructor)
+  const user = useSelector(store => store.userInfo.info);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(getOrderInfo(ingredients.map(item => item._id)))
   }, [])
+
+  if (!user.email)
+    return <Redirect to='/login'/>
 
   return (
     <div className={orderStyles.order}>

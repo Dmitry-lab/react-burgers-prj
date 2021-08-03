@@ -27,3 +27,7 @@ export const getCookie = (name) => {
   );
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+
+export const getToken = (fullString) => {
+  return fullString.replace(/Bearer\s+/g, '')
+}
