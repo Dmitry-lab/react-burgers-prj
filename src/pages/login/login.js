@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink, Redirect, useLocation } from 'react-router-dom';
 import styles from './login.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogIn } from '../../services/actions/user-info';
@@ -9,16 +9,17 @@ function Login() {
   const [emailValue, setEmail] = useState('');
   const [passwordValue, setPassword] = useState('');
 
+  const { requestError } = useSelector(store => store.userInfo);
   const dispatch = useDispatch();
-  const user = useSelector(store => store.userInfo.info);
+  const location = useLocation();
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(userLogIn(emailValue, passwordValue));
   }
 
-  if (user.email)
-    return <Redirect to='/' />
+  if (localStorage.getItem('refreshToken'))
+    return <Redirect to={location.state?.from || '/'}/>
 
   return (
     <form className={styles.content} onSubmit={submitHandler}>
@@ -42,6 +43,12 @@ function Login() {
       <p className='text text_type_main-default text_color_inactive mt-4'>
         Забыли пароль? <NavLink className={styles.link} to='/forgot-password'>Восстановить пароль</NavLink>
       </p>
+      {requestError
+        ? <p className={`${styles.error} text text_type_main-default mt-10`}>
+            {requestError}
+          </p>
+        : null
+      }
     </form>
   )
 }

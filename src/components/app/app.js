@@ -1,7 +1,7 @@
 import appStyles from './app.module.css';
 import AppHeader from '../app-header/app-header';
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import HomePage from '../../pages/home-page/home-page';
 import Login from '../../pages/login/login';
 import Registration from '../../pages/registration/registration';
@@ -12,20 +12,28 @@ import NotFound from '../../pages/not-found/not-found';
 import UserInfo from '../../pages/user-info/user-info';
 import IngredientDetailsPage from '../../pages/ingredient-details-page/ingredient-details-page';
 import { getAllIngredients } from '../../services/actions/burgers-constructor';
+import { setUserInfo } from '../../services/actions/user-info';
+import { getUserInfo } from '../../utils/api-requests';
 import { useDispatch } from 'react-redux';
 import ProtectedRoute from '../protected-route';
 
 function App() {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
 
   React.useEffect(() => {
-    dispatch(getAllIngredients())
+    history.replace(location.pathname, {background: null})
+    dispatch(getAllIngredients());
+    dispatch(setUserInfo(getUserInfo))
   }, [])
+
+  const background = location.state?.background;
 
   return (
     <div className={appStyles.page}>
       <AppHeader />
-      <Switch>
+      <Switch location={background || location}>
         <Route path='/' exact={true}>
           <HomePage />
         </Route>
@@ -50,7 +58,9 @@ function App() {
         <ProtectedRoute path='/profile' exact={true}>
           <UserInfo />
         </ProtectedRoute>
-
+        <ProtectedRoute path='/profile/orders' exact={true}>
+          <UserInfo />
+        </ProtectedRoute>
         <Route>
           <NotFound />
         </Route>

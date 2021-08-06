@@ -9,14 +9,14 @@ import { Redirect } from 'react-router-dom';
 
 function OrderInfo({ ingredients }) {
   const { currentOrder, orderRequestFaild } = useSelector(store => store.burgersConstructor)
-  const user = useSelector(store => store.userInfo.info);
+  const { info } = useSelector(store => store.userInfo);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(getOrderInfo(ingredients.map(item => item._id)))
   }, [])
 
-  if (!user.email)
+  if (!info.email)
     return <Redirect to='/login'/>
 
   return (

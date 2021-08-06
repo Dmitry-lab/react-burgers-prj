@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { registerUser } from '../../services/actions/user-info';
 import styles from '../login/login.module.css';
 
@@ -10,12 +10,16 @@ function Registration() {
   const [nameValue, setName] = useState('');
   const [passwordValue, setPassword] = useState('');
 
+  const { requestError } = useSelector(store => store.userInfo);
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(registerUser(nameValue, emailValue, passwordValue))
   }
+
+  if (localStorage.getItem('refreshToken'))
+    return <Redirect to='/profile'/>
 
   return (
     <form className={styles.content} onSubmit={submitHandler}>
@@ -43,6 +47,12 @@ function Registration() {
       <p className='text text_type_main-default text_color_inactive mt-20'>
         Уже зарегистрированы? <NavLink className={styles.link} to='/login'>Войти</NavLink>
       </p>
+      {requestError
+        ? <p className={`${styles.error} text text_type_main-default mt-10`}>
+            {requestError}
+          </p>
+        : null
+      }
     </form>
   )
 }

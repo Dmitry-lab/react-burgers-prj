@@ -5,10 +5,19 @@
   transition: .3s ease;
   min-height: 208px;
   position: relative;
+  text-decoration: none;
+  color: var(--text-primary-color)
 }
 
 .caption {
   text-align: center;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
 }
 
 .content:hover {
