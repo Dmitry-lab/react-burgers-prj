@@ -10,7 +10,6 @@ const MODAL_CONTAINER = document.querySelector('#modals');
 
 function Modal({header=null, onCloseClick, children}) {
   const history = useHistory();
-  const location = useLocation();
 
   React.useEffect(() => {
     document.addEventListener('keydown', handlerPressEsc)

@@ -9,7 +9,7 @@ function Login() {
   const [emailValue, setEmail] = useState('');
   const [passwordValue, setPassword] = useState('');
 
-  const { requestError } = useSelector(store => store.userInfo);
+  const { info, requestError } = useSelector(store => store.userInfo);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -18,7 +18,7 @@ function Login() {
     dispatch(userLogIn(emailValue, passwordValue));
   }
 
-  if (localStorage.getItem('refreshToken'))
+  if (info.email)
     return <Redirect to={location.state?.from || '/'}/>
 
   return (

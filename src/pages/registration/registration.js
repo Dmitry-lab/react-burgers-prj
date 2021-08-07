@@ -10,7 +10,7 @@ function Registration() {
   const [nameValue, setName] = useState('');
   const [passwordValue, setPassword] = useState('');
 
-  const { requestError } = useSelector(store => store.userInfo);
+  const { info, requestError } = useSelector(store => store.userInfo);
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
@@ -18,8 +18,8 @@ function Registration() {
     dispatch(registerUser(nameValue, emailValue, passwordValue))
   }
 
-  if (localStorage.getItem('refreshToken'))
-    return <Redirect to='/profile'/>
+  if (info.email)
+    return <Redirect to='/' exact='true'/>
 
   return (
     <form className={styles.content} onSubmit={submitHandler}>

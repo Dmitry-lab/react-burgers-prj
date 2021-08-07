@@ -23,12 +23,11 @@ function App() {
   const history = useHistory();
 
   React.useEffect(() => {
-    history.replace(location.pathname, {background: null})
     dispatch(getAllIngredients());
     dispatch(setUserInfo(getUserInfo))
   }, [])
 
-  const background = location.state?.background;
+  const background = history.action === 'PUSH' ? location.state?.background : null;
 
   return (
     <div className={appStyles.page}>

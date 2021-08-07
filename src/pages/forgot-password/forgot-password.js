@@ -3,12 +3,15 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { NavLink, Redirect } from 'react-router-dom';
 import styles from '../login/login.module.css';
 import { resetPassword } from '../../utils/api-requests';
+import { useSelector } from 'react-redux'
 
 function ForgotPassword() {
   const SUCCESS = 'SUCCESS';
   const ERROR_MESSAGE = 'Ошибка обращения к серверу. Проверьте корректность введенных данных или попробуйте выполнить действие позже';
   const [emailValue, setEmail] = useState('');
   const [status, setStatus] = useState('');
+
+  const { info } = useSelector(store => store.userInfo);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -25,7 +28,7 @@ function ForgotPassword() {
       .catch(err => setStatus(ERROR_MESSAGE))
   }
 
-  if (localStorage.getItem('refreshToken'))
+  if (info.email)
     return <Redirect to='/' />
 
   if (status === SUCCESS)
