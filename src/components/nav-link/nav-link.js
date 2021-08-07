@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import linkStyle from './nav-link.module.css';
 import { NavLink } from 'react-router-dom';
 
@@ -20,6 +21,12 @@ function NavigationLink({ iconComponent, linkName, href }) {
       </span>
     </NavLink>
   )
+}
+
+NavigationLink.propTypes = {
+  iconComponent: PropTypes.node.isRequired,
+  linkName: PropTypes.string.isRequired,
+  href: PropTypes.string.isRequired
 }
 
 export default NavigationLink;

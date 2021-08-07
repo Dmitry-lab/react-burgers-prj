@@ -17,7 +17,7 @@ function ForgotPassword() {
     e.preventDefault();
     resetPassword(emailValue)
       .then(res => {
-        if (res.success === true) {
+        if (res.success) {
           localStorage.setItem('resetPassword', 'true');
           setStatus(SUCCESS);
           return

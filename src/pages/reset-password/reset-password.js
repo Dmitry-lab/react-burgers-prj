@@ -16,7 +16,7 @@ function ResetPassword() {
     setNewPassword(passwordValue, codeValue)
       .then(res => {
         if (res.success === true) {
-          localStorage.removeItem('resetPassword', 'true');
+          localStorage.removeItem('resetPassword');
           setStatus(SUCCESS);
           return
         }

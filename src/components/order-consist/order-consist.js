@@ -1,9 +1,11 @@
 import React from 'react';
 import styles from './order-consist.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import ingredientsStyles from './ingredients.module.css';
+import { orderPropTypes } from '../../utils/prop-types';
 
 
-function  OrderConsist({info}) {
+function  OrderConsist({ info }) {
   return (
     <div>
       <span className='text text_type_digits-default mb-10'>{info.number}</span>
@@ -41,6 +43,10 @@ function  OrderConsist({info}) {
       </div>
     </div>
   )
+}
+
+OrderConsist.propTypes = {
+  info: orderPropTypes
 }
 
 export default OrderConsist;

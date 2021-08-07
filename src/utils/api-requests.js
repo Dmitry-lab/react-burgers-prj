@@ -1,14 +1,16 @@
 import { getCookie } from './cookies';
 
-const INGREDIENTS_ADDRESS = 'https://norma.nomoreparties.space/api/ingredients';
-const ORDER_ADDRESS = 'https://norma.nomoreparties.space/api/orders';
-const REGISTRATION_ADDRESS = 'https://norma.nomoreparties.space/api/auth/register';
-const LOGIN_ADDRESS = 'https://norma.nomoreparties.space/api/auth/login';
-const GET_USER_ADDRESS = 'https://norma.nomoreparties.space/api/auth/user';
-const REFRESH_TOKEN_ADDRESS = 'https://norma.nomoreparties.space/api/auth/token';
-const LOGOUT_ADDRESS = 'https://norma.nomoreparties.space/api/auth/logout';
-const RESET_PASSWORD_ADDRESS = 'https://norma.nomoreparties.space/api/password-reset';
-const SET_NEW_PASSWORD = 'https://norma.nomoreparties.space/api/password-reset/reset'
+const BASE_URL = 'https://norma.nomoreparties.space/api';
+
+const INGREDIENTS_ADDRESS = `${BASE_URL}/ingredients`;
+const ORDER_ADDRESS = `${BASE_URL}/orders`;
+const REGISTRATION_ADDRESS = `${BASE_URL}/auth/register`;
+const LOGIN_ADDRESS = `${BASE_URL}/auth/login`;
+const GET_USER_ADDRESS = `${BASE_URL}/auth/user`;
+const REFRESH_TOKEN_ADDRESS = `${BASE_URL}/auth/token`;
+const LOGOUT_ADDRESS = `${BASE_URL}/auth/logout`;
+const RESET_PASSWORD_ADDRESS = `${BASE_URL}/password-reset`;
+const SET_NEW_PASSWORD = `${BASE_URL}/password-reset/reset`;
 
 export function getIngredients() {
   return (

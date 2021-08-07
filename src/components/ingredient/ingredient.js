@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
 
-function Ingredient({info, onOpen}) {
+function Ingredient({ info, onOpen }) {
   const { addedIngredients } = useSelector(store => store.burgersConstructor)
   const [, dragRef] = useDrag(() => ({
     type: 'ingredient',

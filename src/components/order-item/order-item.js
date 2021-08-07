@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-item.module.css';
+import { orderPropTypes } from '../../utils/prop-types';
 
 function OrderItem({ info }) {
 
@@ -34,6 +35,10 @@ function OrderItem({ info }) {
       </div>
     </div>
   )
+}
+
+OrderItem.propTypes = {
+  info: orderPropTypes
 }
 
 export default OrderItem;

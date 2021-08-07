@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './orders-number-list.module.css';
+import { orderPropTypes } from '../../utils/prop-types';
 
-function OrdersNumberList({ list, name}) {
+function OrdersNumberList({ list, name }) {
   return (
     <div className={styles.content}>
       <span className='text text_type_main-medium mb-6'>{name}</span>
@@ -14,6 +16,11 @@ function OrdersNumberList({ list, name}) {
       </ul>
     </div>
   )
+}
+
+OrdersNumberList.propTypes = {
+  list: PropTypes.arrayOf(orderPropTypes).isRequired,
+  name: PropTypes.string.isRequired
 }
 
 export default OrdersNumberList;

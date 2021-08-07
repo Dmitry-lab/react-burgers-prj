@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -22,6 +23,14 @@ function ProtectedRoute({ children, ...rest }) {
       }
     />
   )
+}
+
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+  rest: PropTypes.shape({
+    path: PropTypes.string.isRequired,
+    exact: PropTypes.bool
+  })
 }
 
 export default ProtectedRoute;
