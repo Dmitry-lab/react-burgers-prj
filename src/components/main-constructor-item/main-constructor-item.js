@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { ingredientPropTypes } from '../../utils/prop-types'
 import { SORT_INGREDIENTS } from '../../services/actions/burgers-constructor';
 
-function MainConstructorItem({item, onClose, index}) {
+function MainConstructorItem({ item, onClose, index }) {
   const ref = useRef(null);
   const dispatch = useDispatch();
 

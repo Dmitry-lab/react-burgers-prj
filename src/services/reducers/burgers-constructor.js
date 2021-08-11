@@ -28,7 +28,7 @@ export const constructorReducer = (state = initialState, action) => {
     case LOAD_INGREDIENTS: {
       return {
         ...state,
-         ingredients: action.ingredients}
+        ingredients: action.ingredients}
     }
     case SHOW_INGREDIENT_INFO: {
       return {

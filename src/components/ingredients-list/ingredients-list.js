@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Modal from '../modal/modal';
 import Ingredient from '../ingredient/ingredient';
 import listSyles from './ingredients-list.module.css';

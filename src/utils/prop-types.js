@@ -14,3 +14,12 @@ export const ingredientPropTypes = PropTypes.shape({
   image_large: PropTypes.string.isRequired,
   __v: PropTypes.number.isRequired,
 })
+
+export const orderPropTypes = PropTypes.shape({
+  number: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
+  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired
+})

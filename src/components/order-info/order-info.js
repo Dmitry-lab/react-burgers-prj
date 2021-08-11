@@ -1,18 +1,23 @@
 import React from 'react';
 import doneImg from '../../images/done.png';
-import orderStyles from './order-details.module.css';
+import orderStyles from './order-info.module.css';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { getOrderInfo } from '../../services/actions/burgers-constructor';
+import { Redirect } from 'react-router-dom';
 
-function OrderDetails({ ingredients }) {
+function OrderInfo({ ingredients }) {
   const { currentOrder, orderRequestFaild } = useSelector(store => store.burgersConstructor)
+  const { info } = useSelector(store => store.userInfo);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(getOrderInfo(ingredients.map(item => item._id)))
   }, [])
+
+  if (!info.email)
+    return <Redirect to='/login'/>
 
   return (
     <div className={orderStyles.order}>
@@ -38,9 +43,9 @@ function OrderDetails({ ingredients }) {
   )
 }
 
-OrderDetails.propTypes = {
+OrderInfo.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 }
 
-export default OrderDetails
+export default OrderInfo
 

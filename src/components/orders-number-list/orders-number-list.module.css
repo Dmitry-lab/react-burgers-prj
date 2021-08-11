@@ -1,0 +1,18 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 272px;
+}
+
+.numbers {
+  height: 152px;
+  overflow: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+ul::-webkit-scrollbar-thumb {
+  height: 100px;
+}

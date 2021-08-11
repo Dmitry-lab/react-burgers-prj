@@ -1,10 +1,21 @@
 import React from 'react';
 import styles from './ingredient-details.module.css'
 import { useSelector } from 'react-redux';
+import { Redirect, useParams } from 'react-router-dom';
 
 function IngredientDetails() {
   const nutrientTextStyle = ' text text_type_main-default text_color_inactive';
-  const { viewedIngredient: info } = useSelector(store => store.burgersConstructor);
+  const { viewedIngredient, ingredients } = useSelector(store => store.burgersConstructor);
+  const ingredientId = useParams();
+
+  const info = viewedIngredient ? viewedIngredient : ingredients.find(item => item._id === ingredientId.id)
+
+  if (!ingredients.length)
+    return null
+
+  if (!info) {
+    return <Redirect to='/notfound'/>
+  }
 
   return (
     <div className={styles.ingredient}>
