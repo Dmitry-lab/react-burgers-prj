@@ -1,5 +1,8 @@
 import { getCookie } from './cookies';
 
+export const BASE_ORDERS_URL = 'wss://norma.nomoreparties.space/orders';
+export const ORDERS_URL_ALL = 'wss://norma.nomoreparties.space/orders/all';
+
 const BASE_URL = 'https://norma.nomoreparties.space/api';
 
 const INGREDIENTS_ADDRESS = `${BASE_URL}/ingredients`;
@@ -11,6 +14,7 @@ const REFRESH_TOKEN_ADDRESS = `${BASE_URL}/auth/token`;
 const LOGOUT_ADDRESS = `${BASE_URL}/auth/logout`;
 const RESET_PASSWORD_ADDRESS = `${BASE_URL}/password-reset`;
 const SET_NEW_PASSWORD = `${BASE_URL}/password-reset/reset`;
+const GET_ORDER_INFO = `${BASE_URL}/orders`;
 
 export function getIngredients() {
   return (
@@ -29,9 +33,27 @@ export function placeOrder(ingredientsId) {
     fetch(ORDER_ADDRESS, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + getCookie('accessToken')
       },
       body: JSON.stringify({ ingredients: ingredientsId })
+    })
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
+  )
+}
+
+export function getOrderInfo(orderNumber) {
+  return (
+    fetch(`${ORDER_ADDRESS}/${orderNumber}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
       .then(res => {
         if (res.ok)

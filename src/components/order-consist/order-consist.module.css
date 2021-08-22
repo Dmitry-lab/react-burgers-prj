@@ -1,3 +1,34 @@
+.order {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 122px;
+  width: 640px;
+}
+
+.left-align {
+  align-self: start;
+}
+
+.ingredients {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  height: 312px;
+}
+
+.image-box {
+  width: 56px;
+  height: 56px;
+  background-color: #131316;
+  background-position: center;
+  background-size: 112px 56px;
+  border: 2px solid var(--colors-interface-accent);
+  padding: 2px;
+  border-radius: 50%;
+  z-index: 6;
+}
+
 .content {
   height: 80vh;
   display: flex;

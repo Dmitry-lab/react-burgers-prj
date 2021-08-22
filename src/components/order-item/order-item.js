@@ -2,34 +2,72 @@ import React, {useMemo} from 'react';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-item.module.css';
 import { orderPropTypes } from '../../utils/prop-types';
+import { useSelector } from 'react-redux';
+import { dateFormat } from '../../utils/formating';
 
-function OrderItem({ info }) {
+function OrderItem({ order }) {
+  const { ingredients: ingredientsList } = useSelector((store) => store.burgersConstructor);
 
-  const visibleIngredients = useMemo(() => {
-    return info.ingredients.slice(0,6)
-  }, [info.ingredients])
+  const statusName = {
+    created: 'Создан',
+    pending: 'Готовится',
+    done: 'Выполнен'
+  }
+
+  const ingredientsInfo = useMemo(() => {
+    return order.ingredients.map(orderIngredient => {
+      return ingredientsList?.find(ingredient => ingredient._id === orderIngredient)
+    })
+  }, [order.ingredients, ingredientsList])
+
+  const visibleIngredientsInfo = useMemo(() => {
+    return ingredientsInfo.slice(0, 6)
+  },[ingredientsInfo])
+
+  const hiddenIngredients = useMemo(() => {
+    return order.ingredients.length - visibleIngredientsInfo.length
+  }, [order.ingredients, visibleIngredientsInfo])
+
+  const bunsCount = useMemo(() => {
+    return ingredientsInfo.filter(item => item.type === 'bun').length
+  }, [ingredientsInfo])
+
+  const orderPrice = useMemo(() => {
+    return ingredientsInfo.reduce((acc, item) => {
+      if (item.type !== 'bun')
+        return acc += item.price
+
+      return acc += bunsCount === 1 ? item.price * 2 : item.price;
+    }, 0)
+  }, [ingredientsInfo, bunsCount])
 
   return (
     <div className={styles.block}>
       <div className={styles.top}>
-        <span className='text text_type_digits-default'># {info.number}</span>
-        <span className='text text_type_main-default text_color_inactive'>{info.date}</span>
+        <span className='text text_type_digits-default'># {order.number}</span>
+        <span className='text text_type_main-default text_color_inactive'>{dateFormat(order.updatedAt)}</span>
       </div>
-      <span className='text text_type_main-medium mt-6 mb-6'>{info.name}</span>
+      <span className={`${styles.name} text text_type_main-medium mt-6`}>{order.name}</span>
+      <span className='text text_type_main-default mt-2 mb-6'>{statusName[order.status]}</span>
       <div className={styles.bottom}>
         <div className={styles['image-boxes']}>
-          {visibleIngredients.map((item, index) => (
-              <div
-                key={index}
-                className={styles['image-box']}
-                style={{
-                  backgroundImage: `url("${item.url}")`
-                }}
-              />
+          {visibleIngredientsInfo.map((item, index) => (
+            <div
+              key={index}
+              className={styles['image-box']}
+              style={{
+                backgroundImage: `url("${item?.image_mobile}")`
+              }}
+            >
+              {index === visibleIngredientsInfo.length - 1 && hiddenIngredients
+                ? <p className={`${styles['hidden-count']} text text_type_main-default`}>+{hiddenIngredients}</p>
+                : null
+              }
+            </div>
           ))}
         </div>
         <div className={styles.price}>
-          <span className='text text_type_digits-default'>{info.price}</span>
+          <span className='text text_type_digits-default'>{orderPrice}</span>
           <CurrencyIcon type='primary' />
         </div>
       </div>

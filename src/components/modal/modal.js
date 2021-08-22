@@ -4,7 +4,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import modalStyles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types'
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const MODAL_CONTAINER = document.querySelector('#modals');
 
