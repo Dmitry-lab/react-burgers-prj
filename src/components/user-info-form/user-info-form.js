@@ -66,7 +66,6 @@ function UserInfoForm() {
     passwordResetHandler();
   }
 
-
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(setUserInfo(updateUser, name, login, password))
@@ -75,7 +74,6 @@ function UserInfoForm() {
   const checkSomeChanges = () => {
     return nameChanged || loginChanged || passwordChanged
   }
-
 
   return (
     <form>
@@ -123,4 +121,4 @@ function UserInfoForm() {
   )
 }
 
-export default UserInfoForm
+export default UserInfoForm;

@@ -4,7 +4,6 @@ import styles from './user-info-navigation.module.css';
 import { useDispatch } from 'react-redux';
 import { userLogOut } from '../../services/actions/user-info';
 import PropTypes from 'prop-types'
-import UserInfoForm from '../user-info-form/user-info-form';
 
 function UserInfoNavigation({ info }) {
   const mediumTextClassName = 'text text_type_main-medium text_color_inactive';
@@ -33,7 +32,7 @@ function UserInfoNavigation({ info }) {
   )
 }
 
-UserInfoForm.propTypes = {
+UserInfoNavigation.propTypes = {
   info: PropTypes.string.isRequired
 }
 

@@ -4,9 +4,13 @@ import styles from './order-item.module.css';
 import { orderPropTypes } from '../../utils/prop-types';
 import { useSelector } from 'react-redux';
 import { dateFormat } from '../../utils/formating';
+import { Redirect, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 
 function OrderItem({ order }) {
   const { ingredients: ingredientsList } = useSelector((store) => store.burgersConstructor);
+  const history = useHistory();
+  const location = useLocation();
+  const { path } = useRouteMatch();
 
   const statusName = {
     created: 'Создан',
@@ -41,8 +45,14 @@ function OrderItem({ order }) {
     }, 0)
   }, [ingredientsInfo, bunsCount])
 
+  const orderClickHandler = () => {
+    history.push({
+      pathname: `${path}/${order.number}`,
+    })
+  }
+
   return (
-    <div className={styles.block}>
+    <div className={styles.block} onClick={orderClickHandler}>
       <div className={styles.top}>
         <span className='text text_type_digits-default'># {order.number}</span>
         <span className='text text_type_main-default text_color_inactive'>{dateFormat(order.updatedAt)}</span>

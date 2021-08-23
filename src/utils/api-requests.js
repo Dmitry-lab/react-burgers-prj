@@ -14,7 +14,6 @@ const REFRESH_TOKEN_ADDRESS = `${BASE_URL}/auth/token`;
 const LOGOUT_ADDRESS = `${BASE_URL}/auth/logout`;
 const RESET_PASSWORD_ADDRESS = `${BASE_URL}/password-reset`;
 const SET_NEW_PASSWORD = `${BASE_URL}/password-reset/reset`;
-const GET_ORDER_INFO = `${BASE_URL}/orders`;
 
 export function getIngredients() {
   return (

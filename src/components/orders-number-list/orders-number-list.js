@@ -35,7 +35,7 @@ function OrdersNumberList({ list, name }) {
 }
 
 OrdersNumberList.propTypes = {
-  list: PropTypes.arrayOf(orderPropTypes).isRequired,
+  list: PropTypes.arrayOf(PropTypes.object).isRequired,
   name: PropTypes.string.isRequired
 }
 

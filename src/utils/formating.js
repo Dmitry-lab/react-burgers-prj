@@ -1,4 +1,4 @@
-import  {format, isSameDay, isAfter, formatDistanceToNowStrict, subDays}  from 'date-fns';
+import  {format, isSameDay, isAfter, subDays}  from 'date-fns';
 import ru from 'date-fns/locale/ru';
 
 export const numberFormat = (number) => {
