@@ -15,10 +15,13 @@ function BurgerConstructor() {
 
   const orderSum = useMemo(() => {
     return addedIngredients.reduce((prev, item) => {
-      return item.type === 'bun' ? prev + 2 * item.price : prev + item.price;
+      return prev + item.price;
     }, 0)
   }, [addedIngredients])
 
+  const bunAdded = useMemo(() => {
+    return addedIngredients.some(item => item?.type === 'bun')
+  }, [addedIngredients])
 
   const handlerCloseModal = () => {
     dispatch({ type: CLEAR_ORDER_INFO });
@@ -35,7 +38,9 @@ function BurgerConstructor() {
           <span className='text text_type_digits-medium'>{orderSum}</span>
           <CurrencyIcon />
         </div>
-        <Button type="primary" size="large" onClick={handlerOpenModal}>Оформить заказ</Button>
+        {bunAdded ?
+          <Button type="primary" size="large" onClick={handlerOpenModal}>Оформить заказ</Button> : null
+        }
         {isModalOpened &&
           <Modal onCloseClick={handlerCloseModal}>
             <OrderInfo ingredients={addedIngredients}/>

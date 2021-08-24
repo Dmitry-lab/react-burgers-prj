@@ -72,7 +72,12 @@ export function registration(name, email, password) {
       },
       body: JSON.stringify({ email, password, name })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
   )
 }
 
@@ -85,7 +90,12 @@ export function logIn(email, password) {
       },
       body: JSON.stringify({ email, password })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
   )
 }
 
@@ -98,7 +108,12 @@ export function resetPassword(email) {
       },
       body: JSON.stringify({ email })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
   )
 }
 
@@ -111,7 +126,12 @@ export function setNewPassword(password, token) {
       },
       body: JSON.stringify({ password, token })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
   )
 }
 
@@ -126,7 +146,12 @@ export function logOut() {
         token: localStorage.getItem('refreshToken')
       })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
   )
 }
 
@@ -159,7 +184,12 @@ export function getUserInfo() {
         Authorization: 'Bearer ' + getCookie('accessToken')
       },
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
   )
 }
 
@@ -173,6 +203,11 @@ export function updateUser(name, email, password) {
       },
       body: JSON.stringify({ name, email, password })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
   )
 }

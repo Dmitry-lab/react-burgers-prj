@@ -30,6 +30,7 @@ export const dateFormat = (dateStr) => {
   } else if (isAfter(ordersDate, aWeekAgo)) {
     const diffInTime = ordersDate.getTime() - today;
     timeDistance = rtf.format(Math.ceil(diffInTime / (1000 * 3600 * 24)), 'day');
+    timeDistance = firstLetterToUppercase(timeDistance);
   } else {
     timeDistance = format(ordersDate, 'dd MMMM yyyy', {locale: ru})
   }

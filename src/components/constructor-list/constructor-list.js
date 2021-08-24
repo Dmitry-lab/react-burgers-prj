@@ -9,13 +9,14 @@ import { ADD_INGREDIENT_IN_ORDER, REMOVE_INGREDIENT_FROM_ORDER } from '../../ser
 function ConstructorList() {
   const { addedIngredients } = useSelector(store => store.burgersConstructor);
   const dispatch = useDispatch();
-  const [{ isOver }, dropTarget] = useDrop({
+  const [{ isOver, highlighted }, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(item) {
       dispatch({ type: ADD_INGREDIENT_IN_ORDER, ingredient: item.info })
     },
     collect: (monitor) => ({
-      isOver: monitor.isOver()
+      isOver: monitor.isOver(),
+      highlighted: monitor.canDrop()
     })
   })
 
@@ -27,7 +28,7 @@ function ConstructorList() {
     return addedIngredients.find(item => item?.type === 'bun')
   }, [addedIngredients])
 
-  const contentStyle = isOver
+  const contentStyle = isOver || highlighted
     ? `${styles.content} ${styles.contrast} mt-5`
     : `${styles.content} mt-5`
 
@@ -57,7 +58,14 @@ function ConstructorList() {
               }
               return null
             })
-          : <p className={`${styles.info} text text_type_main-default`}>Перетащите ингредиенты из списка слева в область конструктора</p>
+          : <>
+              <p className={`${styles.info} text text_type_main-default`}>
+                Перетащите ингредиенты из списка слева в область конструктора.
+              </p>
+              <p className={`${styles.info} text text_type_main-default mt-5`}>
+                Для продолжения оформления заказа в конструкторе обязательно должен быть выбран тип булки.
+              </p>
+            </>
         }
       </div>
 

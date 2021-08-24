@@ -9,7 +9,6 @@ import { Redirect, useHistory, useLocation, useRouteMatch } from 'react-router-d
 function OrderItem({ order }) {
   const { ingredients: ingredientsList } = useSelector((store) => store.burgersConstructor);
   const history = useHistory();
-  const location = useLocation();
   const { path } = useRouteMatch();
 
   const statusName = {
@@ -33,15 +32,15 @@ function OrderItem({ order }) {
   }, [order.ingredients, visibleIngredientsInfo])
 
   const bunsCount = useMemo(() => {
-    return ingredientsInfo.filter(item => item.type === 'bun').length
+    return ingredientsInfo.filter(item => item?.type === 'bun').length
   }, [ingredientsInfo])
 
   const orderPrice = useMemo(() => {
     return ingredientsInfo.reduce((acc, item) => {
-      if (item.type !== 'bun')
-        return acc += item.price
+      if (item?.type !== 'bun')
+        return acc += item?.price
 
-      return acc += bunsCount === 1 ? item.price * 2 : item.price;
+      return acc += bunsCount === 1 ? item?.price * 2 : item?.price;
     }, 0)
   }, [ingredientsInfo, bunsCount])
 
