@@ -19,14 +19,20 @@ function Modal({header=null, onCloseClick, children}) {
 
   const handlerPressEsc = (evt) => {
     if (evt.key === 'Escape') {
-      window.location.pathname.includes('ingredients') && history.goBack();
+      (window.location.pathname.includes('ingredients')
+        || window.location.pathname.includes('feed')
+        || window.location.pathname.includes('orders'))
+        && history.goBack();
       onCloseClick()
     }
   }
 
   const handlerCloseClick = (evt) => {
     evt.stopPropagation();
-    window.location.pathname.includes('ingredients') && history.goBack();
+    (window.location.pathname.includes('ingredients')
+        || window.location.pathname.includes('feed')
+        || window.location.pathname.includes('orders'))
+        && history.goBack();
     onCloseClick()
   }
 

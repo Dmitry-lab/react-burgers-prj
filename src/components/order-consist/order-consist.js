@@ -1,26 +1,44 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import styles from './order-consist.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 import { dateFormat } from '../../utils/formating';
-import PropTypes from 'prop-types';
+import { getOrderInfo } from '../../utils/api-requests';
+import { useParams } from 'react-router';
 
-function OrderConsist({ info }) {
-  const { ingredients: ingredientsList } = useSelector((store) => store.burgersConstructor);
+function OrderConsist() {
+  const { ingredients: ingredientsList } = useSelector(store => store.burgersConstructor);
+  const { currentOrder } = useSelector(store => store.ordersInfo);
+  const [ info, setOrderInfo ] = useState(null);
+  const [ error, setError ] = useState(false);
+  const { number: numberFromPath } = useParams();
+
   const statusName = {
     created: 'Создан',
     pending: 'Готовится',
     done: 'Выполнен'
   }
 
+  useEffect(() => {
+    getOrderInfo(numberFromPath ? numberFromPath : currentOrder)
+      .then(data => {
+        if (data.orders[0]) {
+          setOrderInfo(data.orders[0])
+          return
+        }
+        throw new Error('Заказа не существует');
+      })
+      .catch(err => setError(true))
+  }, [])
+
   // группировка ингридентов и получение информации по ним
   const groupedIngredients = useMemo(() => {
-    const countedIngredients = info.ingredients.reduce((acc, item) => {
+    const countedIngredients = info?.ingredients.reduce((acc, item) => {
       acc[item] = acc[item] ? acc[item] + 1 : 1;
       return acc
     }, {});
     ingredientsList.forEach(item => {
-      if (countedIngredients[item._id])
+      if (countedIngredients?.[item._id])
         countedIngredients[item._id] = item.type === 'bun' ? {...item, count: 2}
           : { ...item, count: countedIngredients[item._id] }
     })
@@ -28,10 +46,18 @@ function OrderConsist({ info }) {
   }, [info, ingredientsList])
 
   const orderPrice = useMemo(() => {
-    return Object.values(groupedIngredients)?.reduce((acc, item) => {
+    return groupedIngredients && Object.values(groupedIngredients)?.reduce((acc, item) => {
       return acc += item.price * item.count;
     }, 0)
   }, [groupedIngredients])
+
+  if (error) {
+    return <p className='text text_type_main-medium mt-30 mb-30'>Ошибка при загрузке информации о заказе</p>
+  }
+
+  if (!info) {
+    return <p className='text text_type_main-medium mt-30 mb-30'>Загрузка информации о заказе...</p>
+  }
 
   return (
     <div className={styles.order}>
@@ -74,10 +100,6 @@ function OrderConsist({ info }) {
       </div>
     </div>
   )
-}
-
-OrderConsist.propTypes = {
-  info: PropTypes.object.isRequired
 }
 
 export default OrderConsist;

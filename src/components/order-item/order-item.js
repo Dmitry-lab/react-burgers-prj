@@ -2,13 +2,16 @@ import React, {useMemo} from 'react';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-item.module.css';
 import { orderPropTypes } from '../../utils/prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { dateFormat } from '../../utils/formating';
-import { Redirect, useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
+import { WS_SET_ORDER } from '../../services/actions/ws-actions';
 
-function OrderItem({ order }) {
+function OrderItem({ order, onClick }) {
   const { ingredients: ingredientsList } = useSelector((store) => store.burgersConstructor);
+  const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
   const { path } = useRouteMatch();
 
   const statusName = {
@@ -47,7 +50,10 @@ function OrderItem({ order }) {
   const orderClickHandler = () => {
     history.push({
       pathname: `${path}/${order.number}`,
+      state: {background: location, number: order.number}
     })
+    dispatch({ type: WS_SET_ORDER, number: order.number })
+    onClick();
   }
 
   return (
