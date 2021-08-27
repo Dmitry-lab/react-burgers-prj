@@ -1,5 +1,8 @@
 import { getCookie } from './cookies';
 
+export const BASE_ORDERS_URL = 'wss://norma.nomoreparties.space/orders';
+export const ORDERS_URL_ALL = 'wss://norma.nomoreparties.space/orders/all';
+
 const BASE_URL = 'https://norma.nomoreparties.space/api';
 
 const INGREDIENTS_ADDRESS = `${BASE_URL}/ingredients`;
@@ -29,9 +32,27 @@ export function placeOrder(ingredientsId) {
     fetch(ORDER_ADDRESS, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + getCookie('accessToken')
       },
       body: JSON.stringify({ ingredients: ingredientsId })
+    })
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
+  )
+}
+
+export function getOrderInfo(orderNumber) {
+  return (
+    fetch(`${ORDER_ADDRESS}/${orderNumber}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
       .then(res => {
         if (res.ok)
@@ -51,7 +72,12 @@ export function registration(name, email, password) {
       },
       body: JSON.stringify({ email, password, name })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
   )
 }
 
@@ -64,7 +90,12 @@ export function logIn(email, password) {
       },
       body: JSON.stringify({ email, password })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
   )
 }
 
@@ -77,7 +108,12 @@ export function resetPassword(email) {
       },
       body: JSON.stringify({ email })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
   )
 }
 
@@ -90,7 +126,12 @@ export function setNewPassword(password, token) {
       },
       body: JSON.stringify({ password, token })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
   )
 }
 
@@ -105,7 +146,12 @@ export function logOut() {
         token: localStorage.getItem('refreshToken')
       })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
   )
 }
 
@@ -138,7 +184,12 @@ export function getUserInfo() {
         Authorization: 'Bearer ' + getCookie('accessToken')
       },
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
   )
 }
 
@@ -152,6 +203,11 @@ export function updateUser(name, email, password) {
       },
       body: JSON.stringify({ name, email, password })
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.ok)
+          return res.json()
+
+        return Promise.reject(res.status)
+      })
   )
 }

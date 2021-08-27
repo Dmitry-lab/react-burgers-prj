@@ -1,17 +1,19 @@
 import React, { useMemo } from 'react';
 import styles from './statistics.module.css';
-import { testOrders } from '../../utils/test-data';
 import OrdersNumberList from '../orders-number-list/orders-number-list';
+import { useSelector } from 'react-redux';
+import { numberFormat } from '../../utils/formating';
 
 function Statistics() {
+  const { total , totalToday, orders } = useSelector(store => store.ordersInfo)
 
   const doneOrders = useMemo(() => {
-    return testOrders.filter(order => order.status === 'done')
-  }, [testOrders])
+    return orders.filter(order => order.status === 'done')
+  }, [orders])
 
   const ordersInWork = useMemo(() => {
-    return testOrders.filter(order => order.status === 'active')
-  }, [testOrders])
+    return orders.filter(order => order.status === 'pending' || order.status === 'created')
+  }, [orders])
 
   const textClassName = 'text text_type_main-medium mt-15';
   const numberClassName = `${styles.glow} text text_type_digits-large`;
@@ -23,9 +25,9 @@ function Statistics() {
         <OrdersNumberList list={ordersInWork} name='В работе'/>
       </div>
       <p className={textClassName}>Выполнено за всё время:</p>
-      <span className={numberClassName}>28 753</span>
+      <span className={numberClassName}>{numberFormat(total)}</span>
       <p className={textClassName}>Выполнено за сегодня:</p>
-      <span className={numberClassName}>138</span>
+      <span className={numberClassName}>{totalToday}</span>
     </div>
   )
 }

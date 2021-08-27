@@ -4,7 +4,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 import modalStyles from './modal.module.css';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types'
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const MODAL_CONTAINER = document.querySelector('#modals');
 
@@ -19,14 +19,20 @@ function Modal({header=null, onCloseClick, children}) {
 
   const handlerPressEsc = (evt) => {
     if (evt.key === 'Escape') {
-      window.location.pathname.includes('ingredients') && history.goBack();
+      (window.location.pathname.includes('ingredients')
+        || window.location.pathname.includes('feed')
+        || window.location.pathname.includes('orders'))
+        && history.goBack();
       onCloseClick()
     }
   }
 
   const handlerCloseClick = (evt) => {
     evt.stopPropagation();
-    window.location.pathname.includes('ingredients') && history.goBack();
+    (window.location.pathname.includes('ingredients')
+        || window.location.pathname.includes('feed')
+        || window.location.pathname.includes('orders'))
+        && history.goBack();
     onCloseClick()
   }
 
