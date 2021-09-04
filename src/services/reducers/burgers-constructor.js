@@ -5,6 +5,7 @@ import {
   PLACE_ORDER_FAILD,
   PLACE_ORDER_SUCCESS,
   CLEAR_ORDER_INFO,
+  CLEAR_PREV_ORDER,
   CHANGE_INGREDIENTS_GROUP,
   CHANGE_SCROLL_TARGET,
   GET_TO_SCROLL_TARGET,
@@ -45,7 +46,7 @@ export const constructorReducer = (state = initialState, action) => {
     case PLACE_ORDER_SUCCESS: {
       return {
         ...state,
-        currentOrder: action.order,
+        currentOrder: state.addedIngredients.length ? action.order : null,
       }
     }
     case PLACE_ORDER_FAILD: {
@@ -61,6 +62,12 @@ export const constructorReducer = (state = initialState, action) => {
         orderRequestFaild: false,
         currentOrder: null,
         addedIngredients: []
+      }
+    }
+    case CLEAR_PREV_ORDER: {
+      return {
+        ...state,
+        currentOrder: null
       }
     }
     case CHANGE_INGREDIENTS_GROUP: {

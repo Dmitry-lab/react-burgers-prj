@@ -5,7 +5,7 @@ import OrderInfo from '../order-info/order-info';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import constructorStyles from './burger-constructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { CLEAR_ORDER_INFO } from '../../services/actions/burgers-constructor';
+import { CLEAR_ORDER_INFO, CLEAR_PREV_ORDER } from '../../services/actions/burgers-constructor';
 
 
 function BurgerConstructor() {
@@ -28,7 +28,10 @@ function BurgerConstructor() {
     setModalOpened(false)
   }
 
-  const handlerOpenModal = () => setModalOpened(true);
+  const handlerOpenModal = () => {
+    dispatch({ type: CLEAR_PREV_ORDER })
+    setModalOpened(true);
+  }
 
   return (
     <div  className={constructorStyles.content}>

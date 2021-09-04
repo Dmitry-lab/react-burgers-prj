@@ -4,7 +4,7 @@ import orderStyles from './order-info.module.css';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { getOrderInfo } from '../../services/actions/burgers-constructor';
+import { CLEAR_ORDER_INFO, getOrderInfo } from '../../services/actions/burgers-constructor';
 import { Redirect } from 'react-router-dom';
 
 function OrderInfo({ ingredients }) {
@@ -14,6 +14,8 @@ function OrderInfo({ ingredients }) {
 
   React.useEffect(() => {
     dispatch(getOrderInfo(ingredients.map(item => item._id)))
+
+  //  return dispatch({ type: CLEAR_ORDER_INFO })
   }, [])
 
   if (!info.email)
