@@ -14,7 +14,7 @@ import {
   SORT_INGREDIENTS
 } from '../actions/burgers-constructor';
 
-const initialState = {
+export const initialState = {
   ingredients: [],
   addedIngredients: [],
   viewedIngredient: null,
@@ -46,7 +46,7 @@ export const constructorReducer = (state = initialState, action) => {
     case PLACE_ORDER_SUCCESS: {
       return {
         ...state,
-        currentOrder: state.addedIngredients.length ? action.order : null,
+        currentOrder: action.order,
       }
     }
     case PLACE_ORDER_FAILD: {
